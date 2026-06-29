@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Issues</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f6f8;
+            text-align: center;
+        }
+        li {
+            margin: 10px;
+            padding: 10px;
+            background: white;
+            display: inline-block;
+        }
+        a {
+            margin-left: 10px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+<h1>📋 All Issues</h1>
+
+<ul>
+    <% issues.forEach(issue => { %>
+        <li>
+            <b><%= issue.title %></b><br>
+
+Assigned To:
+<b><%= issue.assigned_to %></b><br>
+
+Status:
+<b><%= issue.status %></b>
+            <% if(issue.status === "Open") { %>
+                <a href="/close/<%= issue.id %>">Close</a>
+            <% } %>
+        </li>
+    <% }) %>
+</ul>
+
+<a href="/">⬅ Back</a>
+
+</body>
+</html>

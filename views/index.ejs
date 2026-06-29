@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Incident System</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f6f8;
+            text-align: center;
+            margin-top: 50px;
+        }
+        input {
+            padding: 10px;
+            width: 250px;
+        }
+        button {
+            padding: 10px 15px;
+            background: #007bff;
+            color: white;
+            border: none;
+        }
+        a {
+            display: block;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>🚨 Incident Management System</h1>
+
+<form action="/create" method="POST">
+    <input type="text" name="title" placeholder="Enter issue" required>
+    <br><br>
+
+<input type="text"
+       name="assigned_to"
+       placeholder="Assign To (e.g. Admin)"
+       required>
+    <button type="submit">Submit</button>
+</form>
+
+<a href="/issues">View Issues</a>
+
+</body>
+</html>
