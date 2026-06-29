@@ -3,6 +3,9 @@ const bodyParser = require('body-parser');
 const session = require("express-session");
 const db = require('./database');
 
+require("dotenv").config();
+const transporter = require("./config/mail");
+
 const app = express();
 
 
@@ -51,10 +54,28 @@ app.post('/create', (req, res) => {
     db.run(
         "INSERT INTO incidents (title, assigned_to, status) VALUES (?, ?, ?)",
         [title, assigned_to, "Open"],
-        (err) => {
+        async (err) => {
             if (err) {
                 console.error(err.message);
+                return res.redirect("/issues");
             }
+             try {
+                await transporter.sendMail({
+                    from: process.env.EMAIL_USER,
+                    to: process.env.EMAIL_USER,
+                    subject: "New Incident Created",
+                    text: `A new incident has been created.
+
+Title: ${title}
+Assigned To: ${assigned_to}
+Status: Open`
+                });
+
+                console.log("Email sent successfully");
+            } catch (error) {
+                console.log("Email error:", error.message);
+            }
+
             res.redirect("/issues");
         }
     );
